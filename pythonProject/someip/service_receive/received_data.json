@@ -1,0 +1,762 @@
+[
+    {
+        "measurement": 42,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 5
+    },
+    {
+        "measurement": 47,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 6
+    },
+    {
+        "measurement": 49,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 7
+    },
+    {
+        "measurement": 56,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 8
+    },
+    {
+        "measurement": 59,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 9
+    },
+    {
+        "measurement": 39,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 10
+    },
+    {
+        "measurement": 20,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 11
+    },
+    {
+        "measurement": 55,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 12
+    },
+    {
+        "measurement": 38,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 13
+    },
+    {
+        "measurement": 43,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 14
+    },
+    {
+        "measurement": 44,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 15
+    },
+    {
+        "measurement": 48,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 16
+    },
+    {
+        "measurement": 48,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 17
+    },
+    {
+        "measurement": 25,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 18
+    },
+    {
+        "measurement": 43,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 19
+    },
+    {
+        "measurement": 26,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 20
+    },
+    {
+        "measurement": 41,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 21
+    },
+    {
+        "measurement": 22,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 22
+    },
+    {
+        "measurement": 60,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 23
+    },
+    {
+        "measurement": 29,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 24
+    },
+    {
+        "measurement": 55,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 25
+    },
+    {
+        "measurement": 54,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 26
+    },
+    {
+        "measurement": 29,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 27
+    },
+    {
+        "measurement": 59,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 7
+    },
+    {
+        "measurement": 25,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 8
+    },
+    {
+        "measurement": 32,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 9
+    },
+    {
+        "measurement": 25,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 10
+    },
+    {
+        "measurement": 30,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 11
+    },
+    {
+        "measurement": 42,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 12
+    },
+    {
+        "measurement": 42,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 13
+    },
+    {
+        "measurement": 48,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 14
+    },
+    {
+        "measurement": 50,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 15
+    },
+    {
+        "measurement": 26,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 16
+    },
+    {
+        "measurement": 41,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 17
+    },
+    {
+        "measurement": 24,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 18
+    },
+    {
+        "measurement": 34,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 19
+    },
+    {
+        "measurement": 26,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 20
+    },
+    {
+        "measurement": 53,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 21
+    },
+    {
+        "measurement": 60,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 22
+    },
+    {
+        "measurement": 55,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 23
+    },
+    {
+        "measurement": 25,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 24
+    },
+    {
+        "measurement": 27,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 25
+    },
+    {
+        "measurement": 60,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 26
+    },
+    {
+        "measurement": 37,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 27
+    },
+    {
+        "measurement": 45,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 28
+    },
+    {
+        "measurement": 35,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 29
+    },
+    {
+        "measurement": 40,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 30
+    },
+    {
+        "measurement": 22,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 31
+    },
+    {
+        "measurement": 38,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 32
+    },
+    {
+        "measurement": 22,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 1
+    },
+    {
+        "measurement": 22,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 2
+    },
+    {
+        "measurement": 54,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 3
+    },
+    {
+        "measurement": 41,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 4
+    },
+    {
+        "measurement": 51,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 5
+    },
+    {
+        "measurement": 37,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 6
+    },
+    {
+        "measurement": 29,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 7
+    },
+    {
+        "measurement": 48,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 8
+    },
+    {
+        "measurement": 25,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 9
+    },
+    {
+        "measurement": 53,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 10
+    },
+    {
+        "measurement": 32,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 11
+    },
+    {
+        "measurement": 39,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 12
+    },
+    {
+        "measurement": 52,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 1
+    },
+    {
+        "measurement": 36,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 2
+    },
+    {
+        "measurement": 39,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 3
+    },
+    {
+        "measurement": 24,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 4
+    },
+    {
+        "measurement": 32,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 5
+    },
+    {
+        "measurement": 36,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 6
+    },
+    {
+        "measurement": 27,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 7
+    },
+    {
+        "measurement": 43,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 8
+    },
+    {
+        "measurement": 37,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 1
+    },
+    {
+        "measurement": 21,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 2
+    },
+    {
+        "measurement": 57,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 3
+    },
+    {
+        "measurement": 60,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 4
+    },
+    {
+        "measurement": 49,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 5
+    },
+    {
+        "measurement": 44,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 6
+    },
+    {
+        "measurement": 21,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 7
+    },
+    {
+        "measurement": 43,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 8
+    },
+    {
+        "measurement": 52,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 9
+    },
+    {
+        "measurement": 59,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 10
+    },
+    {
+        "measurement": 29,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 11
+    },
+    {
+        "measurement": 35,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 12
+    },
+    {
+        "measurement": 51,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 13
+    },
+    {
+        "measurement": 43,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 14
+    },
+    {
+        "measurement": 39,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 15
+    },
+    {
+        "measurement": 43,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 16
+    },
+    {
+        "measurement": 42,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 17
+    },
+    {
+        "measurement": 49,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 18
+    },
+    {
+        "measurement": 23,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 19
+    },
+    {
+        "measurement": 41,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 20
+    },
+    {
+        "measurement": 51,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 21
+    },
+    {
+        "measurement": 40,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 22
+    },
+    {
+        "measurement": 25,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 23
+    },
+    {
+        "measurement": 54,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 24
+    },
+    {
+        "measurement": 25,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 25
+    },
+    {
+        "measurement": 56,
+        "version": {
+            "major": 1,
+            "minor": 0
+        },
+        "timestamp": 26
+    }
+]
