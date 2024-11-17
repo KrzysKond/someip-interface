@@ -9,7 +9,7 @@ from someipy.service_discovery import construct_service_discovery
 from someipy.client_service_instance import construct_client_service_instance
 
 from api.send_json_data import send_json_data
-from someip.dataclasses.dataclasses import Temperature
+from someip.dataclasses.dataclasses import TemperatureMsg
 
 
 remote_ip = "192.168.1.100"
@@ -39,7 +39,7 @@ def temp_callback(someip_message: SomeIpMessage) -> None:
         print(
             f"Received {len(someip_message.payload)} bytes for event {someip_message.header.method_id}. Attempting deserialization..."
         )
-        temperature_msg = Temperature().deserialize(someip_message.payload)
+        temperature_msg = TemperatureMsg().deserialize(someip_message.payload)
         print(temperature_msg)
         serialized_data = serialize_obj(temperature_msg)
         with open("received_data.json", "r+") as file:
