@@ -87,6 +87,7 @@ def generate_code(json_data: Dict[str, Any]) -> str:
     output = [imports_output]
 
     someip = json_data.get("someip", {})
+    name = next(iter(someip))
     for service_name, service_data in someip.items():
         methods = service_data.get("methods", {})
         events = service_data.get("events", {})
@@ -99,7 +100,7 @@ def generate_code(json_data: Dict[str, Any]) -> str:
             class_code = generate_class(event_name, event_data["data_structure"])
             output.append(class_code)
 
-    return "\n\n\n".join(output)
+    return "\n\n\n".join(output), name
 
 
 def load_json(file_path: str) -> Dict[str, Any]:
@@ -112,8 +113,7 @@ def save_code(file_path: str, code: str):
         file.write(code)
 
 
-json_input = load_json("input_structure_engine.json")
-generated_code = generate_code(json_input)
-save_code("generated_dataclass.py", generated_code)
+json_input = load_json("input/env_service.json")
+generated_code, name = generate_code(json_input)
 
-print(generated_code)
+save_code(f"dataclass/{name.lower()}_dataclass.py", generated_code)

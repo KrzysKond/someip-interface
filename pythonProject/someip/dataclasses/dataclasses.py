@@ -18,7 +18,7 @@ class Version(SomeIpPayload):
             self.minor = Uint8()
 
 @dataclass
-class Temperature(SomeIpPayload):
+class TemperatureMsg(SomeIpPayload):
     version: Version
     measurement: Uint8
     timestamp: Uint64

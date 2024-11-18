@@ -8,7 +8,7 @@ from someipy import (
     TransportLayerProtocol
 )
 from someipy.service_discovery import construct_service_discovery
-from someip.dataclasses.dataclasses import Temperature
+from someip.dataclasses.dataclasses import TemperatureMsg
 from someipy.serialization import Uint8, Uint64
 
 sd_multicast_group = "224.224.224.245"
@@ -19,7 +19,7 @@ sample_service_id = 0x1234
 sample_eventgroup_id = 0x0321
 event_ids = [32769, 32770, 32771]
 
-def create_temperature_message(msg: Temperature):
+def create_temperature_message(msg: TemperatureMsg):
     msg.measurement.value = random.randint(20, 60)
     msg.timestamp = Uint64(msg.timestamp.value + 1)
     return msg
@@ -56,7 +56,7 @@ async def setup_server_service(service_discovery):
 async def main_send():
     service_discovery = await setup_service_discovery()
     service_instance = await setup_server_service(service_discovery)
-    msg = Temperature()
+    msg = TemperatureMsg()
     msg.version.major = Uint8(1)
     msg.version.minor = Uint8(0)
     try:
