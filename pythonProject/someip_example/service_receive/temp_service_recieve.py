@@ -8,19 +8,19 @@ from someipy.serialization import Uint8, Uint64, SomeIpPayload
 from someipy.service_discovery import construct_service_discovery
 from someipy.client_service_instance import construct_client_service_instance
 
-from someip.api.send_json_data import send_json_data
-from someip.dataclasses.dataclasses import TemperatureMsg
+from someip_example.api.send_json_data import send_json_data
+from someip_example.dataclasses.dataclasses import TemperatureMsg
+
+#from someip.api.send_json_data import send_json_data
 
 
-remote_ip = "192.168.1.100"
-remote_port = 12345
 
 sd_multicast_group = "224.224.224.245"
 sd_port = 30490
 interface_ip = "127.0.0.2"
+
 sample_service_id = 0x1234
 sample_eventgroup_id = 0x0321
-sample_event_id = 32769
 sample_instance_id = 0x5678
 
 def serialize_obj(obj):

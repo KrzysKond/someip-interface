@@ -8,8 +8,9 @@ from someipy import (
     TransportLayerProtocol
 )
 from someipy.service_discovery import construct_service_discovery
-from someip.dataclasses.dataclasses import TemperatureMsg
 from someipy.serialization import Uint8, Uint64
+
+from someip_example.dataclasses.dataclasses import TemperatureMsg
 
 sd_multicast_group = "224.224.224.245"
 sd_port = 30490
