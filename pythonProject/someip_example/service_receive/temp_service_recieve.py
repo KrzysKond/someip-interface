@@ -2,13 +2,13 @@ import asyncio
 import json
 import logging
 import ipaddress
-from someipy import SomeIpMessage, EventGroup, ServiceBuilder, TransportLayerProtocol
+from someipy import SomeIpMessage, ServiceBuilder, TransportLayerProtocol
 from someipy.logging import set_someipy_log_level
 from someipy.serialization import Uint8, Uint64, SomeIpPayload
 from someipy.service_discovery import construct_service_discovery
 from someipy.client_service_instance import construct_client_service_instance
 
-from api.send_json_data import send_json_data
+from someip.api.send_json_data import send_json_data
 from someip.dataclasses.dataclasses import TemperatureMsg
 
 
