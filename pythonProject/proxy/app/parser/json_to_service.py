@@ -23,17 +23,20 @@ from someipy.service_discovery import construct_service_discovery
 from proxy.app.settings import INTERFACE_IP, MULTICAST_GROUP, SD_PORT
 """
 
-    callback_functions = ""
-
+    events_callback = ""
+    method_callback = ""
     for service_name, service_config in services.items():
         events = service_config.get('events', {})
-
+        methods = service_config.get('methods', {})
         for event_name in events:
             service_code += f"""
-from proxy.app.parser.dataclass.{service_name.lower()}_dataclass import {event_name}Msg  
-            """
-
-            callback_functions += f"""
+from proxy.app.parser.dataclass.{service_name.lower()}_dataclass import {event_name}Msg"""
+        for method_name in methods:
+            service_code += f"""
+from proxy.app.parser.dataclass.{service_name.lower()}_dataclass import {method_name}Msg"""
+        service_code += "\n"
+        events_callback += f"""
+                  
 def callback_{event_name.lower()}_msg(someip_message: SomeIpMessage) -> None:
     try:
         print(f"Received {{len(someip_message.payload)}} bytes for event {{someip_message.header.method_id}}. Attempting deserialization...")
@@ -43,8 +46,18 @@ def callback_{event_name.lower()}_msg(someip_message: SomeIpMessage) -> None:
         print(f"Error in deserialization: {{e}}")
 """
 
-    service_code += callback_functions
+    service_code += events_callback
 
+    for method_name, method_config in methods.items():
+        instance_id = method_config['id']
+        method_callback += f"""
+async def {method_name}() -> None:
+    method_result = await {method_name.lower()}_instance.call_method(
+        {instance_id}, {method_name}Msg().serialize()
+    )
+    return method_result
+"""
+    service_code += method_callback
     service_code += f"""
 async def setup_service_discovery():
     return await construct_service_discovery(MULTICAST_GROUP, SD_PORT, INTERFACE_IP)
@@ -106,6 +119,7 @@ async def construct_service_instances(service_discovery):
         service_discovery.attach(instance)
     return {service_variable_name}_instances
 
+
 async def main():
     set_someipy_log_level(logging.DEBUG)
     service_discovery = await setup_service_discovery()
@@ -137,5 +151,5 @@ def process_service_json(input_json_path: str):
     generate_service_code(parsed_config)
 
 
-input_json_path = 'input/env_service.json'
+input_json_path = 'input/engine_service.json'
 process_service_json(input_json_path)

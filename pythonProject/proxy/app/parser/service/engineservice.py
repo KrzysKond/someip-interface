@@ -10,8 +10,11 @@ from someipy.logging import set_someipy_log_level
 from someipy.service_discovery import construct_service_discovery
 from proxy.app.settings import INTERFACE_IP, MULTICAST_GROUP, SD_PORT
 
-from proxy.app.parser.dataclass.engineservice_dataclass import CurrentModeMsg  
-            
+from proxy.app.parser.dataclass.engineservice_dataclass import CurrentModeMsg
+from proxy.app.parser.dataclass.engineservice_dataclass import StartMsg
+from proxy.app.parser.dataclass.engineservice_dataclass import SetModeMsg
+
+                  
 def callback_currentmode_msg(someip_message: SomeIpMessage) -> None:
     try:
         print(f"Received {len(someip_message.payload)} bytes for event {someip_message.header.method_id}. Attempting deserialization...")
@@ -19,6 +22,18 @@ def callback_currentmode_msg(someip_message: SomeIpMessage) -> None:
         print(CurrentMode_msg)
     except Exception as e:
         print(f"Error in deserialization: {e}")
+
+async def Start() -> None:
+    method_result = await start_instance.call_method(
+        1, StartMsg().serialize()
+    )
+    return method_result
+
+async def SetMode() -> None:
+    method_result = await setmode_instance.call_method(
+        2, SetModeMsg().serialize()
+    )
+    return method_result
 
 async def setup_service_discovery():
     return await construct_service_discovery(MULTICAST_GROUP, SD_PORT, INTERFACE_IP)
@@ -70,6 +85,7 @@ async def construct_service_instances(service_discovery):
     for instance in engineservice_instances:
         service_discovery.attach(instance)
     return engineservice_instances
+
 
 async def main():
     set_someipy_log_level(logging.DEBUG)

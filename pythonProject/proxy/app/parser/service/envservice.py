@@ -10,15 +10,11 @@ from someipy.logging import set_someipy_log_level
 from someipy.service_discovery import construct_service_discovery
 from proxy.app.settings import INTERFACE_IP, MULTICAST_GROUP, SD_PORT
 
-from proxy.app.parser.dataclass.envservice_dataclass import newTempEvent_1Msg  
-            
-from proxy.app.parser.dataclass.envservice_dataclass import newTempEvent_2Msg  
-            
-from proxy.app.parser.dataclass.envservice_dataclass import newTempEvent_3Msg  
-            
-from proxy.app.parser.dataclass.envservice_dataclass import newPressEventMsg  
-            
-from proxy.app.parser.dataclass.envservice_dataclass import newDPressEventMsg  
+from proxy.app.parser.dataclass.envservice_dataclass import newTempEvent_1Msg
+from proxy.app.parser.dataclass.envservice_dataclass import newTempEvent_2Msg
+from proxy.app.parser.dataclass.envservice_dataclass import newTempEvent_3Msg
+from proxy.app.parser.dataclass.envservice_dataclass import newPressEventMsg
+from proxy.app.parser.dataclass.envservice_dataclass import newDPressEventMsg
             
 def callback_newtempevent_1_msg(someip_message: SomeIpMessage) -> None:
     try:
@@ -28,6 +24,7 @@ def callback_newtempevent_1_msg(someip_message: SomeIpMessage) -> None:
     except Exception as e:
         print(f"Error in deserialization: {e}")
 
+            
 def callback_newtempevent_2_msg(someip_message: SomeIpMessage) -> None:
     try:
         print(f"Received {len(someip_message.payload)} bytes for event {someip_message.header.method_id}. Attempting deserialization...")
@@ -36,6 +33,7 @@ def callback_newtempevent_2_msg(someip_message: SomeIpMessage) -> None:
     except Exception as e:
         print(f"Error in deserialization: {e}")
 
+            
 def callback_newtempevent_3_msg(someip_message: SomeIpMessage) -> None:
     try:
         print(f"Received {len(someip_message.payload)} bytes for event {someip_message.header.method_id}. Attempting deserialization...")
@@ -44,6 +42,7 @@ def callback_newtempevent_3_msg(someip_message: SomeIpMessage) -> None:
     except Exception as e:
         print(f"Error in deserialization: {e}")
 
+            
 def callback_newpressevent_msg(someip_message: SomeIpMessage) -> None:
     try:
         print(f"Received {len(someip_message.payload)} bytes for event {someip_message.header.method_id}. Attempting deserialization...")
@@ -52,6 +51,7 @@ def callback_newpressevent_msg(someip_message: SomeIpMessage) -> None:
     except Exception as e:
         print(f"Error in deserialization: {e}")
 
+            
 def callback_newdpressevent_msg(someip_message: SomeIpMessage) -> None:
     try:
         print(f"Received {len(someip_message.payload)} bytes for event {someip_message.header.method_id}. Attempting deserialization...")
