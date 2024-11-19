@@ -1,6 +1,5 @@
 import json
 from typing import Dict, Any
-
 from proxy.app.settings import INTERFACE_IP
 
 
@@ -8,20 +7,50 @@ def load_json(file_path: str) -> Dict[str, Any]:
     with open(file_path, "r") as file:
         return json.load(file)
 
-def generate_service_code(parsed_config, interface_ip, port=3002, ttl=5):
+
+def generate_service_code(parsed_config, port=3002, ttl=5):
     services = parsed_config['someip']
     service_code = f"""
 import ipaddress
+import logging
 from someipy import (
     construct_client_service_instance,
     TransportLayerProtocol,
-    service_discovery,
-    ServiceBuilder
+    ServiceBuilder, SomeIpMessage
 )
+from someipy.logging import set_someipy_log_level
+from someipy.service_discovery import construct_service_discovery
+from proxy.app.settings import INTERFACE_IP, MULTICAST_GROUP, SD_PORT
+"""
 
-async def construct_service_instances():
-    interface_ip = "{interface_ip}"
-    service_instances = []
+    callback_functions = ""
+
+    for service_name, service_config in services.items():
+        events = service_config.get('events', {})
+
+        for event_name in events:
+            service_code += f"""
+from proxy.app.parser.dataclass.{service_name.lower()}_dataclass import {event_name}Msg  
+            """
+
+            callback_functions += f"""
+def callback_{event_name.lower()}_msg(someip_message: SomeIpMessage) -> None:
+    try:
+        print(f"Received {{len(someip_message.payload)}} bytes for event {{someip_message.header.method_id}}. Attempting deserialization...")
+        {event_name}_msg = {event_name}Msg().deserialize(someip_message.payload)
+        print({event_name}_msg)
+    except Exception as e:
+        print(f"Error in deserialization: {{e}}")
+"""
+
+    service_code += callback_functions
+
+    service_code += f"""
+async def setup_service_discovery():
+    return await construct_service_discovery(MULTICAST_GROUP, SD_PORT, INTERFACE_IP)
+
+async def construct_service_instances(service_discovery):
+    interface_ip = "{INTERFACE_IP}"
 """
 
     for service_name, service_config in services.items():
@@ -31,9 +60,9 @@ async def construct_service_instances():
         events = service_config.get('events', {})
 
         service_variable_name = f"{service_name.lower()}"
-
         service_code += f"""
     {service_variable_name}_instances = []
+
     {service_variable_name}= (
         ServiceBuilder()
         .with_service_id({service_id})
@@ -67,15 +96,28 @@ async def construct_service_instances():
         sd_sender=service_discovery,
         protocol=TransportLayerProtocol.UDP,
     )
+    {event_name.lower()}_instance.register_callback(callback_{event_name.lower()}_msg)
+    {event_name.lower()}_instance.subscribe_eventgroup({instance_id})
     {service_variable_name}_instances.append({event_name.lower()}_instance)
 """
 
-    service_code += """
-    for instance in service_instances:
+    service_code += f"""
+    for instance in {service_variable_name}_instances:
         service_discovery.attach(instance)
+    return {service_variable_name}_instances
 
 async def main():
-    await construct_service_instances()
+    set_someipy_log_level(logging.DEBUG)
+    service_discovery = await setup_service_discovery()
+    service_instances = await construct_service_instances(service_discovery)
+    try:
+        await asyncio.Future()
+    except asyncio.CancelledError:
+        print("Shutting down...")
+    finally:
+        service_discovery.close()
+        for instance in service_instances:
+            await instance.close()
 
 if __name__ == "__main__":
     import asyncio
@@ -84,16 +126,16 @@ if __name__ == "__main__":
     save_code(f'service/{service_variable_name}.py', service_code)
     return service_code
 
+
 def save_code(file_path: str, code: str):
     with open(file_path, "w") as file:
         file.write(code)
 
-def process_service_json(input_json_path: str, interface_ip: str):
+
+def process_service_json(input_json_path: str):
     parsed_config = load_json(input_json_path)
-    generate_service_code(parsed_config, interface_ip)
+    generate_service_code(parsed_config)
 
 
 input_json_path = 'input/env_service.json'
-interface_ip = INTERFACE_IP
-
-process_service_json(input_json_path, interface_ip)
+process_service_json(input_json_path)
