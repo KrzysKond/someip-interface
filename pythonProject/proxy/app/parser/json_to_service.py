@@ -7,6 +7,9 @@ def load_json(file_path: str) -> Dict[str, Any]:
     with open(file_path, "r") as file:
         return json.load(file)
 
+def save_code(file_path: str, code: str):
+    with open(file_path, "w") as file:
+        file.write(code)
 
 def generate_service_code(parsed_config, port=3002, ttl=5):
     services = parsed_config['someip']
@@ -139,11 +142,6 @@ if __name__ == "__main__":
 """
     save_code(f'service/{service_variable_name}.py', service_code)
     return service_code
-
-
-def save_code(file_path: str, code: str):
-    with open(file_path, "w") as file:
-        file.write(code)
 
 
 def process_service_json(input_json_path: str):

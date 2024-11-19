@@ -23,13 +23,13 @@ def callback_currentmode_msg(someip_message: SomeIpMessage) -> None:
     except Exception as e:
         print(f"Error in deserialization: {e}")
 
-async def Start() -> None:
+async def Start(start) -> None:
     method_result = await start_instance.call_method(
         1, StartMsg().serialize()
     )
     return method_result
 
-async def SetMode() -> None:
+async def SetMode(setmode) -> None:
     method_result = await setmode_instance.call_method(
         2, SetModeMsg().serialize()
     )
@@ -38,8 +38,6 @@ async def SetMode() -> None:
 async def setup_service_discovery():
     return await construct_service_discovery(MULTICAST_GROUP, SD_PORT, INTERFACE_IP)
 
-async def construct_service_instances(service_discovery):
-    interface_ip = "127.0.0.1"
 
     engineservice_instances = []
 
@@ -53,7 +51,7 @@ async def construct_service_instances(service_discovery):
     start_instance = await construct_client_service_instance(
         service=engineservice,
         instance_id=1,
-        endpoint=(ipaddress.IPv4Address(interface_ip), 3002),
+        endpoint=(ipaddress.IPv4Address(INTERFACE_IP), 3002),
         ttl=5,
         sd_sender=service_discovery,
         protocol=TransportLayerProtocol.UDP,
@@ -63,7 +61,7 @@ async def construct_service_instances(service_discovery):
     setmode_instance = await construct_client_service_instance(
         service=engineservice,
         instance_id=2,
-        endpoint=(ipaddress.IPv4Address(interface_ip), 3002),
+        endpoint=(ipaddress.IPv4Address(INTERFACE_IP), 3002),
         ttl=5,
         sd_sender=service_discovery,
         protocol=TransportLayerProtocol.UDP,
@@ -73,7 +71,7 @@ async def construct_service_instances(service_discovery):
     currentmode_instance = await construct_client_service_instance(
         service=engineservice,
         instance_id=32769,
-        endpoint=(ipaddress.IPv4Address(interface_ip), 3002),
+        endpoint=(ipaddress.IPv4Address(INTERFACE_IP), 3002),
         ttl=5,
         sd_sender=service_discovery,
         protocol=TransportLayerProtocol.UDP,
