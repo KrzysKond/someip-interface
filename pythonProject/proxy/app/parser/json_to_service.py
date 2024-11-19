@@ -51,7 +51,7 @@ def callback_{event_name.lower()}_msg(someip_message: SomeIpMessage) -> None:
     for method_name, method_config in methods.items():
         instance_id = method_config['id']
         method_callback += f"""
-async def {method_name}() -> None:
+async def {method_name}({method_name.lower()}) -> None:
     method_result = await {method_name.lower()}_instance.call_method(
         {instance_id}, {method_name}Msg().serialize()
     )
