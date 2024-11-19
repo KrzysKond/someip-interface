@@ -1,6 +1,9 @@
 import json
 from typing import Dict, Any
 
+from proxy.app.settings import INTERFACE_IP
+
+
 def load_json(file_path: str) -> Dict[str, Any]:
     with open(file_path, "r") as file:
         return json.load(file)
@@ -89,7 +92,8 @@ def process_service_json(input_json_path: str, interface_ip: str):
     parsed_config = load_json(input_json_path)
     generate_service_code(parsed_config, interface_ip)
 
+
 input_json_path = 'input/env_service.json'
-interface_ip = "10.101.0.1"
+interface_ip = INTERFACE_IP
 
 process_service_json(input_json_path, interface_ip)

@@ -1,14 +1,18 @@
 
 import ipaddress
+import logging
+
 from someipy import (
     construct_client_service_instance,
     TransportLayerProtocol,
     service_discovery,
     ServiceBuilder
 )
+from someipy.logging import set_someipy_log_level
+
 
 async def construct_service_instances():
-    interface_ip = "10.101.0.1"
+    interface_ip = "127.0.0.1"
     service_instances = []
 
     envservice_instances = []
