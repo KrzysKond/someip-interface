@@ -2,12 +2,11 @@
 import ipaddress
 import logging
 import asyncio
-from typing import List
 
 from someipy import (
     construct_client_service_instance,
     TransportLayerProtocol,
-    ServiceBuilder, SomeIpMessage, ClientServiceInstance
+    ServiceBuilder, SomeIpMessage
 )
 from someipy.logging import set_someipy_log_level
 from someipy.service_discovery import construct_service_discovery
@@ -19,16 +18,17 @@ from proxy.app.parser.dataclass.envservice_dataclass import newPressEventMsg
 from proxy.app.parser.dataclass.envservice_dataclass import newDPressEventMsg
 
 class ServiceManagerSingleton:
-    _instance = None
+    __instance = None
 
     def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(ServiceManagerSingleton, cls).__new__(cls)
-        return cls._instance
+        if not cls.__instance:
+            cls.__instance = super(ServiceManagerSingleton, cls).__new__(cls)
+        return cls.__instance
 
     def __init__(self):
         self.service_discovery = None
-        self.instances = []  
+        self.methods = []
+        self.events = []
 
 
     async def setup_service_discovery(self):
@@ -55,7 +55,7 @@ class ServiceManagerSingleton:
         )
         newtempevent_1_instance.register_callback(self.callback_newtempevent_1_msg)
         newtempevent_1_instance.subscribe_eventgroup(32769)
-        self.instances.append(newtempevent_1_instance)
+        self.events.append(newtempevent_1_instance)
         self.service_discovery.attach(newtempevent_1_instance)
 
         newtempevent_2_instance = await construct_client_service_instance(
@@ -68,7 +68,7 @@ class ServiceManagerSingleton:
         )
         newtempevent_2_instance.register_callback(self.callback_newtempevent_2_msg)
         newtempevent_2_instance.subscribe_eventgroup(32770)
-        self.instances.append(newtempevent_2_instance)
+        self.events.append(newtempevent_2_instance)
         self.service_discovery.attach(newtempevent_2_instance)
 
         newtempevent_3_instance = await construct_client_service_instance(
@@ -81,7 +81,7 @@ class ServiceManagerSingleton:
         )
         newtempevent_3_instance.register_callback(self.callback_newtempevent_3_msg)
         newtempevent_3_instance.subscribe_eventgroup(32771)
-        self.instances.append(newtempevent_3_instance)
+        self.events.append(newtempevent_3_instance)
         self.service_discovery.attach(newtempevent_3_instance)
 
         newpressevent_instance = await construct_client_service_instance(
@@ -94,7 +94,7 @@ class ServiceManagerSingleton:
         )
         newpressevent_instance.register_callback(self.callback_newpressevent_msg)
         newpressevent_instance.subscribe_eventgroup(32773)
-        self.instances.append(newpressevent_instance)
+        self.events.append(newpressevent_instance)
         self.service_discovery.attach(newpressevent_instance)
 
         newdpressevent_instance = await construct_client_service_instance(
@@ -107,7 +107,7 @@ class ServiceManagerSingleton:
         )
         newdpressevent_instance.register_callback(self.callback_newdpressevent_msg)
         newdpressevent_instance.subscribe_eventgroup(32771)
-        self.instances.append(newdpressevent_instance)
+        self.events.append(newdpressevent_instance)
         self.service_discovery.attach(newdpressevent_instance)
 
     def callback_newtempevent_1_msg(self, someip_message: SomeIpMessage) -> None:
@@ -153,9 +153,12 @@ class ServiceManagerSingleton:
     async def shutdown(self):
         if self.service_discovery:
             self.service_discovery.close()
-        for instance in self.instances:
-            if instance:
-                await instance.close()
+        for event in self.events:
+            if event:
+                await event.close()
+        for method in self.methods:
+            if method:
+                await method.close()
 
 async def main():
     set_someipy_log_level(logging.DEBUG)

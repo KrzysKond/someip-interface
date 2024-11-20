@@ -2,12 +2,11 @@
 import ipaddress
 import logging
 import asyncio
-from typing import List
 
 from someipy import (
     construct_client_service_instance,
     TransportLayerProtocol,
-    ServiceBuilder, SomeIpMessage, ClientServiceInstance
+    ServiceBuilder, SomeIpMessage
 )
 from someipy.logging import set_someipy_log_level
 from someipy.service_discovery import construct_service_discovery
@@ -17,16 +16,17 @@ from proxy.app.parser.dataclass.engineservice_dataclass import StartMsg
 from proxy.app.parser.dataclass.engineservice_dataclass import SetModeMsg
 
 class ServiceManagerSingleton:
-    _instance = None
+    __instance = None
 
     def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(ServiceManagerSingleton, cls).__new__(cls)
-        return cls._instance
+        if not cls.__instance:
+            cls.__instance = super(ServiceManagerSingleton, cls).__new__(cls)
+        return cls.__instance
 
     def __init__(self):
         self.service_discovery = None
-        self.instances = []  
+        self.methods = []
+        self.events = []
         self.start_instance = None
         self.setmode_instance = None
 
@@ -53,7 +53,7 @@ class ServiceManagerSingleton:
             sd_sender=self.service_discovery,
             protocol=TransportLayerProtocol.UDP,
         )
-        self.instances.append(self.start_instance) 
+        self.methods.append(self.start_instance) 
         self.service_discovery.attach(self.start_instance)
 
         self.setmode_instance = await construct_client_service_instance(
@@ -64,7 +64,7 @@ class ServiceManagerSingleton:
             sd_sender=self.service_discovery,
             protocol=TransportLayerProtocol.UDP,
         )
-        self.instances.append(self.setmode_instance) 
+        self.methods.append(self.setmode_instance) 
         self.service_discovery.attach(self.setmode_instance)
 
         currentmode_instance = await construct_client_service_instance(
@@ -77,7 +77,7 @@ class ServiceManagerSingleton:
         )
         currentmode_instance.register_callback(self.callback_currentmode_msg)
         currentmode_instance.subscribe_eventgroup(32769)
-        self.instances.append(currentmode_instance)
+        self.events.append(currentmode_instance)
         self.service_discovery.attach(currentmode_instance)
 
     def callback_currentmode_msg(self, someip_message: SomeIpMessage) -> None:
@@ -103,9 +103,12 @@ class ServiceManagerSingleton:
     async def shutdown(self):
         if self.service_discovery:
             self.service_discovery.close()
-        for instance in self.instances:
-            if instance:
-                await instance.close()
+        for event in self.events:
+            if event:
+                await event.close()
+        for method in self.methods:
+            if method:
+                await method.close()
 
 async def main():
     set_someipy_log_level(logging.DEBUG)

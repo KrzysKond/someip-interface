@@ -17,12 +17,11 @@ def generate_service_code(parsed_config, port=3002, ttl=5):
 import ipaddress
 import logging
 import asyncio
-from typing import List
 
 from someipy import (
     construct_client_service_instance,
     TransportLayerProtocol,
-    ServiceBuilder, SomeIpMessage, ClientServiceInstance
+    ServiceBuilder, SomeIpMessage
 )
 from someipy.logging import set_someipy_log_level
 from someipy.service_discovery import construct_service_discovery
@@ -37,16 +36,17 @@ from proxy.app.settings import INTERFACE_IP, MULTICAST_GROUP, SD_PORT
 
     service_code += f"""
 class ServiceManagerSingleton:
-    _instance = None
+    __instance = None
 
     def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(ServiceManagerSingleton, cls).__new__(cls)
-        return cls._instance
+        if not cls.__instance:
+            cls.__instance = super(ServiceManagerSingleton, cls).__new__(cls)
+        return cls.__instance
 
     def __init__(self):
         self.service_discovery = None
-        self.instances = []  
+        self.methods = []
+        self.events = []
 """
 
     for service_name, service_config in services.items():
@@ -83,7 +83,7 @@ class ServiceManagerSingleton:
             sd_sender=self.service_discovery,
             protocol=TransportLayerProtocol.UDP,
         )
-        self.instances.append(self.{method_name.lower()}_instance) 
+        self.methods.append(self.{method_name.lower()}_instance) 
         self.service_discovery.attach(self.{method_name.lower()}_instance)
 """
 
@@ -99,7 +99,7 @@ class ServiceManagerSingleton:
         )
         {event_name.lower()}_instance.register_callback(self.callback_{event_name.lower()}_msg)
         {event_name.lower()}_instance.subscribe_eventgroup({event_config['id']})
-        self.instances.append({event_name.lower()}_instance)
+        self.events.append({event_name.lower()}_instance)
         self.service_discovery.attach({event_name.lower()}_instance)
 """
 
@@ -129,9 +129,12 @@ class ServiceManagerSingleton:
     async def shutdown(self):
         if self.service_discovery:
             self.service_discovery.close()
-        for instance in self.instances:
-            if instance:
-                await instance.close()
+        for event in self.events:
+            if event:
+                await event.close()
+        for method in self.methods:
+            if method:
+                await method.close()
 """
 
     service_code += """
