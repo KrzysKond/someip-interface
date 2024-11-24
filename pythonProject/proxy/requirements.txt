@@ -1,2 +1,2 @@
-someipy~=1.0.0
-flask == 3.0.3
+git+https://github.com/Simba-Avionic/someipy.git
+flask==3.0.3

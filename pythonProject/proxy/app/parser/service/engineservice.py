@@ -8,6 +8,8 @@ from someipy import (
 )
 from someipy.logging import set_someipy_log_level
 from someipy.service_discovery import construct_service_discovery
+
+from proxy.app.parser.service.envservice import construct_service_instances
 from proxy.app.settings import INTERFACE_IP, MULTICAST_GROUP, SD_PORT
 
 from proxy.app.parser.dataclass.engineservice_dataclass import CurrentModeMsg

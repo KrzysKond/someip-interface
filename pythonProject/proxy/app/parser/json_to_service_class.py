@@ -52,6 +52,8 @@ class ServiceManagerSingleton:
     for service_name, service_config in services.items():
         for method_name in service_config.get('methods', {}).keys():
             service_code += f"        self.{method_name.lower()}_instance = None\n"
+        for event_name in service_config.get('events', {}).keys():
+            service_code += f"        self.{event_name.lower()}_instance = None\n"
 
     service_code += f"""
 
@@ -89,7 +91,7 @@ class ServiceManagerSingleton:
 
         for event_name, event_config in service_config.get('events', {}).items():
             service_code += f"""
-        {event_name.lower()}_instance = await construct_client_service_instance(
+        self.{event_name.lower()}_instance = await construct_client_service_instance(
             service={service_name.lower()},
             instance_id={event_config['id']},
             endpoint=(ipaddress.IPv4Address(INTERFACE_IP), {port}),
@@ -97,10 +99,10 @@ class ServiceManagerSingleton:
             sd_sender=self.service_discovery,
             protocol=TransportLayerProtocol.UDP,
         )
-        {event_name.lower()}_instance.register_callback(self.callback_{event_name.lower()}_msg)
-        {event_name.lower()}_instance.subscribe_eventgroup({event_config['id']})
-        self.events.append({event_name.lower()}_instance)
-        self.service_discovery.attach({event_name.lower()}_instance)
+        self.{event_name.lower()}_instance.register_callback(self.callback_{event_name.lower()}_msg)
+        self.{event_name.lower()}_instance.subscribe_eventgroup({event_config['id']})
+        self.events.append(self.{event_name.lower()}_instance)
+        self.service_discovery.attach(self.{event_name.lower()}_instance)
 """
 
     for service_name, service_config in services.items():
@@ -118,7 +120,7 @@ class ServiceManagerSingleton:
     for service_name, service_config in services.items():
         for method_name in service_config.get('methods', {}).keys():
             service_code += f"""
-    async def {method_name}(self, {method_name.lower()}) -> None:
+    async def {method_name}(self, {method_name.lower()}):
         method_result = await self.{method_name.lower()}_instance.call_method(
             {service_config['methods'][method_name]['id']}, {method_name}Msg().serialize()
         )
@@ -163,5 +165,5 @@ def process_service_json(input_json_path: str):
     generate_service_code(parsed_config)
 
 
-input_json_path = 'input/env_service.json'
+input_json_path = 'input/engine_service.json'
 process_service_json(input_json_path)

@@ -8,7 +8,6 @@ from someipy.serialization import (
 
 @dataclass
 class StartMsg(SomeIpPayload):
-    in_data: None
     out: Bool
 
     def __init__(self):
